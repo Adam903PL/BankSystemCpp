@@ -12,7 +12,8 @@ namespace BankSystem {
 
     enum class TransactionType {
         DEPOSIT,
-        WITHDRAWAL
+        WITHDRAWAL,
+        TRANSFER
     };
 
     class Transaction {
@@ -23,13 +24,10 @@ namespace BankSystem {
         time_t timestamp;
 
     public:
-        // Konstruktor
         Transaction(TransactionType type, double amount, const string& description = "");
 
-        // Setter for timestamp (for deserialization)
         void setTimestamp(time_t ts) { timestamp = ts; }
 
-        // Gettery
         TransactionType getType() const { return type; }
         double getAmount() const { return amount; }
         string getDescription() const { return description; }

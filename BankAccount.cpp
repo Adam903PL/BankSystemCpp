@@ -76,7 +76,7 @@ namespace BankSystem {
 
         int transactionCount = stoi(tokens[3]);
 
-        if (tokens.size() < 4 + transactionCount * 4) {
+        if (tokens.size() < static_cast<size_t>(4 + transactionCount * 4)) {
             throw runtime_error("Nieprawidłowa liczba tokenów dla transakcji");
         }
 

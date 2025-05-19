@@ -51,12 +51,54 @@ void showMenu() {
     wcout << L"6. Wyświetl wszystkie konta" << endl;
     wcout << L"7. Zapisz dane do pliku" << endl;
     wcout << L"8. Wczytaj dane z pliku" << endl;
+    wcout << L"9. Wykonaj przelew" << endl;
+    wcout << L"10. Generuj raport miesięczny" << endl;
+    wcout << L"11. Generuj raport z okresu" << endl;
+    wcout << L"12. O projekcie" << endl;
     wcout << L"0. Wyjście" << endl;
     wcout << L"Wybierz opcję: ";
 }
 
+void showWelcomeBanner() {
+    wcout << L"\n";
+    wcout << L"╔═════════════════════════════════════════════════════════════════╗" << endl;
+    wcout << L"║                                                                 ║" << endl;
+    wcout << L"║           ████████╗███████╗ ██████╗██╗  ██╗███╗   ██╗ ██╗       ║" << endl;
+    wcout << L"║           ╚══██╔══╝██╔════╝██╔════╝██║  ██║████╗  ██║ ██║       ║" << endl;
+    wcout << L"║              ██║   █████╗  ██║     ███████║██╔██╗ ██║ ██║       ║" << endl;
+    wcout << L"║              ██║   ██╔══╝  ██║     ██╔══██║██║╚██╗██║ ██║       ║" << endl;
+    wcout << L"║              ██║   ███████╗╚██████╗██║  ██║██║ ╚████║ ██║       ║" << endl;
+    wcout << L"║              ╚═╝   ╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═╝       ║" << endl;
+    wcout << L"║                                                                 ║" << endl;
+    wcout << L"║               ██████╗  █████╗ ███╗   ██╗██╗  ██╗                ║" << endl;
+    wcout << L"║               ██╔══██╗██╔══██╗████╗  ██║██║ ██╔╝                ║" << endl;
+    wcout << L"║               ██████╔╝███████║██╔██╗ ██║█████╔╝                 ║" << endl;
+    wcout << L"║               ██╔══██╗██╔══██║██║╚██╗██║██╔═██╗                 ║" << endl;
+    wcout << L"║               ██████╔╝██║  ██║██║ ╚████║██║  ██╗                ║" << endl;
+    wcout << L"║               ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝                ║" << endl;
+    wcout << L"║                                                                 ║" << endl;
+    wcout << L"║                    System Bankowy v2137.0                          ║" << endl;
+    wcout << L"╚═════════════════════════════════════════════════════════════════╝" << endl;
+    wcout << L"\n";
+}
+
+void showRepositoryInfo() {
+    wcout << L"\n===== O PROJEKCIE =====" << endl;
+    wcout << L"TechniBank - System Bankowy v2.0" << endl;
+    wcout << L"Projekt dostępny na GitHub:" << endl;
+    wcout << L"https://github.com/Karman1818/TechniBank" << endl;
+    wcout << L"\nTechnologie:" << endl;
+    wcout << L"- HTML CSS JS" << endl;
+    wcout << L"- Standard Template Library (STL)" << endl;
+    wcout << L"- Obsługa plików" << endl;
+    wcout << L"- Obsługa transakcji" << endl;
+    wcout << L"- System raportowania" << endl;
+    wcout << L"========================" << endl;
+}
+
 int main(int argc, char* argv[]) {
     setupPolishEncoding();
+    showWelcomeBanner();
     
     wstring dataFilePath;
 
@@ -78,6 +120,10 @@ int main(int argc, char* argv[]) {
     string accountNumber, ownerName, description;
     double amount;
     BankSystem::BankAccount* account = nullptr;
+    string targetAccount;
+    string startDate;
+    string endDate;
+    int month, year;
 
     while (true) {
         showMenu();
@@ -100,7 +146,6 @@ int main(int argc, char* argv[]) {
                 wcin >> amount;
                 clearInputBuffer();
 
-                // Konwersja z wstring do string
                 {
                     wstring_convert<codecvt_utf8<wchar_t>> converter;
                     accountNumber = converter.to_bytes(wAccountNumber);
@@ -114,11 +159,10 @@ int main(int argc, char* argv[]) {
                 }
                 break;
 
-            case 2: // Wpłać środki
+            case 2:
                 wcout << L"Podaj numer konta: ";
                 getline(wcin, wAccountNumber);
 
-                // Konwersja z wstring do string
                 {
                     wstring_convert<codecvt_utf8<wchar_t>> converter;
                     accountNumber = converter.to_bytes(wAccountNumber);
@@ -136,7 +180,6 @@ int main(int argc, char* argv[]) {
                 wcout << L"Podaj opis transakcji (opcjonalnie): ";
                 getline(wcin, wDescription);
 
-                // Konwersja z wstring do string
                 {
                     wstring_convert<codecvt_utf8<wchar_t>> converter;
                     description = converter.to_bytes(wDescription);
@@ -150,11 +193,10 @@ int main(int argc, char* argv[]) {
                 }
                 break;
 
-            case 3: // Wypłać środki
+            case 3:
                 wcout << L"Podaj numer konta: ";
                 getline(wcin, wAccountNumber);
 
-                // Konwersja z wstring do string
                 {
                     wstring_convert<codecvt_utf8<wchar_t>> converter;
                     accountNumber = converter.to_bytes(wAccountNumber);
@@ -172,7 +214,6 @@ int main(int argc, char* argv[]) {
                 wcout << L"Podaj opis transakcji (opcjonalnie): ";
                 getline(wcin, wDescription);
 
-                // Konwersja z wstring do string
                 {
                     wstring_convert<codecvt_utf8<wchar_t>> converter;
                     description = converter.to_bytes(wDescription);
@@ -186,11 +227,10 @@ int main(int argc, char* argv[]) {
                 }
                 break;
 
-            case 4: // Sprawdź saldo
+            case 4:
                 wcout << L"Podaj numer konta: ";
                 getline(wcin, wAccountNumber);
 
-                // Konwersja z wstring do string
                 {
                     wstring_convert<codecvt_utf8<wchar_t>> converter;
                     accountNumber = converter.to_bytes(wAccountNumber);
@@ -209,7 +249,6 @@ int main(int argc, char* argv[]) {
                 wcout << L"Podaj numer konta: ";
                 getline(wcin, wAccountNumber);
 
-                // Konwersja z wstring do string
                 {
                     wstring_convert<codecvt_utf8<wchar_t>> converter;
                     accountNumber = converter.to_bytes(wAccountNumber);
@@ -221,7 +260,7 @@ int main(int argc, char* argv[]) {
                 }
 
                 account = bankSystem.getAccount(accountNumber);
-                account->sortTransactionHistory(); // Sortowanie historii według daty
+                account->sortTransactionHistory();
 
                 wcout << L"Historia transakcji dla konta " << wAccountNumber << L":" << endl;
                 wcout << L"---------------------------------------------------" << endl;
@@ -260,6 +299,20 @@ int main(int argc, char* argv[]) {
                 break;
 
             case 7: // Zapisz dane do pliku
+                wcout << L"Podaj numer konta do zapisania: ";
+                getline(wcin, wAccountNumber);
+
+                // Konwersja z wstring do string
+                {
+                    wstring_convert<codecvt_utf8<wchar_t>> converter;
+                    accountNumber = converter.to_bytes(wAccountNumber);
+                }
+
+                if (!bankSystem.accountExists(accountNumber)) {
+                    wcout << L"Konto o podanym numerze nie istnieje!" << endl;
+                    break;
+                }
+
                 wcout << L"Podaj ścieżkę do pliku (lub Enter dla domyślnej): ";
                 getline(wcin, dataFilePath);
 
@@ -269,10 +322,10 @@ int main(int argc, char* argv[]) {
                     dataFilePathStr = converter.to_bytes(dataFilePath);
                 }
 
-                if (bankSystem.saveToFile(dataFilePathStr)) {
-                    wcout << L"Dane zostały zapisane pomyślnie!" << endl;
+                if (bankSystem.saveAccountToFile(accountNumber, dataFilePathStr)) {
+                    wcout << L"Dane konta zostały zapisane pomyślnie!" << endl;
                 } else {
-                    wcout << L"Nie udało się zapisać danych." << endl;
+                    wcout << L"Nie udało się zapisać danych konta." << endl;
                 }
                 break;
 
@@ -291,6 +344,95 @@ int main(int argc, char* argv[]) {
                 } else {
                     wcout << L"Nie udało się wczytać danych." << endl;
                 }
+                break;
+
+            case 9: // Wykonaj przelew
+                wcout << L"Podaj numer konta źródłowego: ";
+                getline(wcin, wAccountNumber);
+                {
+                    wstring_convert<codecvt_utf8<wchar_t>> converter;
+                    accountNumber = converter.to_bytes(wAccountNumber);
+                }
+
+                wcout << L"Podaj numer konta docelowego: ";
+                getline(wcin, wAccountNumber);
+                {
+                    wstring_convert<codecvt_utf8<wchar_t>> converter;
+                    targetAccount = converter.to_bytes(wAccountNumber);
+                }
+
+                wcout << L"Podaj kwotę przelewu: ";
+                wcin >> amount;
+                clearInputBuffer();
+
+                wcout << L"Podaj opis przelewu (opcjonalnie): ";
+                getline(wcin, wDescription);
+                {
+                    wstring_convert<codecvt_utf8<wchar_t>> converter;
+                    description = converter.to_bytes(wDescription);
+                }
+
+                if (bankSystem.transfer(accountNumber, targetAccount, amount, description)) {
+                    wcout << L"Przelew został zrealizowany pomyślnie!" << endl;
+                } else {
+                    wcout << L"Nie udało się zrealizować przelewu. Sprawdź saldo konta." << endl;
+                }
+                break;
+
+            case 10:
+                wcout << L"Podaj numer konta: ";
+                getline(wcin, wAccountNumber);
+                {
+                    wstring_convert<codecvt_utf8<wchar_t>> converter;
+                    accountNumber = converter.to_bytes(wAccountNumber);
+                }
+
+                wcout << L"Podaj miesiąc (1-12): ";
+                wcin >> month;
+                wcout << L"Podaj rok: ";
+                wcin >> year;
+                clearInputBuffer();
+
+                {
+                    string report = bankSystem.generateMonthlyReport(accountNumber, month, year);
+                    wstring_convert<codecvt_utf8<wchar_t>> converter;
+                    wstring wReport = converter.from_bytes(report);
+                    wcout << wReport << endl;
+                }
+                break;
+
+            case 11:
+                wcout << L"Podaj numer konta: ";
+                getline(wcin, wAccountNumber);
+                {
+                    wstring_convert<codecvt_utf8<wchar_t>> converter;
+                    accountNumber = converter.to_bytes(wAccountNumber);
+                }
+
+                wcout << L"Podaj datę początkową (YYYY-MM-DD): ";
+                getline(wcin, wDescription);
+                {
+                    wstring_convert<codecvt_utf8<wchar_t>> converter;
+                    startDate = converter.to_bytes(wDescription);
+                }
+
+                wcout << L"Podaj datę końcową (YYYY-MM-DD): ";
+                getline(wcin, wDescription);
+                {
+                    wstring_convert<codecvt_utf8<wchar_t>> converter;
+                    endDate = converter.to_bytes(wDescription);
+                }
+
+                {
+                    string report = bankSystem.generateTransactionReport(accountNumber, startDate, endDate);
+                    wstring_convert<codecvt_utf8<wchar_t>> converter;
+                    wstring wReport = converter.from_bytes(report);
+                    wcout << wReport << endl;
+                }
+                break;
+
+            case 12:
+                showRepositoryInfo();
                 break;
 
             default:

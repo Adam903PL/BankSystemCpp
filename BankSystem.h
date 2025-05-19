@@ -23,11 +23,18 @@ namespace BankSystem {
 
         bool deposit(const string& accountNumber, double amount, const string& description = "Standardowa wpłata");
         bool withdraw(const string& accountNumber, double amount, const string& description = "Standardowa wypłata");
+        bool transfer(const string& fromAccount, const string& toAccount, double amount, const string& description = "Przelew");
 
         bool saveToFile(const string& filePath = "") const;
+        bool saveAccountToFile(const string& accountNumber, const string& filePath = "") const;
         bool loadFromFile(const string& filePath = "");
 
         void displayAllAccounts() const;
+        
+        // Metody raportowania
+        string generateMonthlyReport(const string& accountNumber, int month, int year) const;
+        string generateTransactionReport(const string& accountNumber, const string& startDate, const string& endDate) const;
+        bool saveReportToFile(const string& report, const string& filePath) const;
     };
 
 }
