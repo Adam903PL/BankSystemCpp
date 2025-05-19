@@ -55,6 +55,7 @@ void showMenu() {
     wcout << L"10. Generuj raport miesięczny" << endl;
     wcout << L"11. Generuj raport z okresu" << endl;
     wcout << L"12. O projekcie" << endl;
+    wcout << L"13. NIE WYBIERAĆ!" << endl;
     wcout << L"0. Wyjście" << endl;
     wcout << L"Wybierz opcję: ";
 }
@@ -96,6 +97,19 @@ void showRepositoryInfo() {
     wcout << L"========================" << endl;
 }
 
+void showWarning() {
+    wcout << L"\n╔═══════════════════════════════════════════════════════════════════════════╗" << endl;
+    wcout << L"║                                                                           ║" << endl;
+    wcout << L"║  █████╗ ██╗      ██████╗  ██████╗ ██████╗  ██████╗ ██╗███╗   ██╗████████╗ ║" << endl;
+    wcout << L"║ ██╔══██╗██║     ██╔════╝ ██╔═══██╗██╔══██╗██╔═══██╗██║████╗  ██║╚══██╔══╝ ║" << endl;
+    wcout << L"║ ███████║██║     ██║  ███╗██║   ██║██████╔╝██║   ██║██║██╔██╗ ██║   ██║    ║" << endl;
+    wcout << L"║ ██╔══██║██║     ██║   ██║██║   ██║██╔═══╝ ██║   ██║██║██║╚██╗██║   ██║    ║" << endl;
+    wcout << L"║ ██║  ██║███████╗╚██████╔╝╚██████╔╝██║     ╚██████╔╝██║██║ ╚████║   ██║    ║" << endl;
+    wcout << L"║ ╚═╝  ╚═╝╚══════╝ ╚═════╝  ╚═════╝ ╚═╝      ╚═════╝ ╚═╝╚═╝  ╚═══╝   ╚═╝    ║" << endl;
+    wcout << L"╚═══════════════════════════════════════════════════════════════════════════╝" << endl;
+
+    wcout << L"\n";
+}
 int main(int argc, char* argv[]) {
     setupPolishEncoding();
     showWelcomeBanner();
@@ -433,6 +447,10 @@ int main(int argc, char* argv[]) {
 
             case 12:
                 showRepositoryInfo();
+                break;
+
+            case 13:
+                showWarning();
                 break;
 
             default:
